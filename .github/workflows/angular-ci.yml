@@ -24,7 +24,8 @@ jobs:
         run: npm run build -- --configuration production
 
       - name: 🚀 Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=dist/countdown-timer --no-silent --repo=https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/MuhammadAfzal/countdown-timer.git
+        run: npx angular-cli-ghpages --dir=dist/countdown-timer
 
         env:
+          CI: true
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
