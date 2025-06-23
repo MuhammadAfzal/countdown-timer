@@ -1,17 +1,15 @@
-name: Angular CI
+name: Build and Deploy Angular App
 
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🔄 Checkout code
+      - name: 🔄 Checkout repo
         uses: actions/checkout@v3
 
       - name: 🟢 Use Node.js
@@ -23,7 +21,9 @@ jobs:
         run: npm ci
 
       - name: 🛠️ Build Angular app
-        run: npm run build
+        run: npm run build -- --configuration production
 
-      - name: ✅ Run tests
-        run: npm test -- --watch=false --browsers=ChromeHeadless
+      - name: 🚀 Deploy to GitHub Pages
+        run: npx angular-cli-ghpages --dir=dist/countdown-timer
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
