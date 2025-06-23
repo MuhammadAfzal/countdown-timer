@@ -1,0 +1,19 @@
+<div class="timer-box">
+  <p class="loading" *ngIf="loading()">🔄 Loading deadline...</p>
+
+  <ng-template [ngIf]="!loading()">
+    <p class="error" *ngIf="error()">
+      ❌ Failed to fetch deadline. Please try again.
+    </p>
+
+    <ng-template [ngIf]="!error()">
+      <p class="active" *ngIf="countdownService.remainingSeconds() > 0">
+        ⏳ Seconds left to deadline: {{ countdownService.remainingSeconds() }}
+      </p>
+
+      <p class="done" *ngIf="countdownService.remainingSeconds() <= 0">
+        ✅ Deadline reached.
+      </p>
+    </ng-template>
+  </ng-template>
+</div>
